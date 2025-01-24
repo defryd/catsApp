@@ -50,7 +50,7 @@ export const CatScreen = ({ route }: Props) => {
 
     return (
         <CustomView safe style={[globalTheme.mainContainer]}>
-            <View style={{ flexDirection: 'row', alignItems: 'center', paddingBottom: 2 }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', paddingBottom: 2}}>
                 <ButtonBack />
                 <View style={styles.centeredView}>
                     <SubTitle text={cat?.name} />

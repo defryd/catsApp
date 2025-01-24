@@ -20,7 +20,6 @@ export const SubTitle = ({style, text, safe = false }: Props) => {
             style={[{
                 ...globalTheme.subTitle,
                 color: theme.varts.text,
-                marginBottom: 10,
                 marginTop: safe ? top : 0,
             },
             style
