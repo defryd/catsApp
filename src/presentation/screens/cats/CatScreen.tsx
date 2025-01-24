@@ -6,10 +6,10 @@ import { RootStackParams } from '../../navigator/StackNavigator';
 import { Text } from 'react-native-paper';
 import { ScrollView } from 'react-native-gesture-handler';
 import { ButtonBack } from '../../components/ui/ButtonBack';
-import { Title } from '../../components/ui/Title';
 import { ThemeContext } from '../../context/ThemeContext';
 import { useContext } from 'react';
 import { FootBg } from '../../components/ui/FootBg';
+import { SubTitle } from '../../components/ui/SubTitle';
 
 interface Props extends StackScreenProps<RootStackParams, 'CatScreen'> {}
 
@@ -53,7 +53,7 @@ export const CatScreen = ({ route }: Props) => {
             <View style={{ flexDirection: 'row', alignItems: 'center', paddingBottom: 2 }}>
                 <ButtonBack />
                 <View style={styles.centeredView}>
-                    <Title text='Busqueda' />
+                    <SubTitle text={cat?.name} />
                 </View>
             </View>
             
