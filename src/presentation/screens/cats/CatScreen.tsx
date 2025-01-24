@@ -24,7 +24,7 @@ export const CatScreen = ({ route }: Props) => {
         return (
             <Text>
                 {Array.from({ length: count }, (_, i) => (
-                    <Text key={i} style={{ color: theme.varts.text }}>•</Text>
+                    <Text key={i} style={{ color: theme.varts.start, fontSize: 25 }}>★</Text>
                 ))}
             </Text>
         );
@@ -34,8 +34,8 @@ export const CatScreen = ({ route }: Props) => {
         { label: 'Description', value: cat?.description },
         { label: 'Temperament', value: cat?.temperament },
         { label: 'Country of Origin', value: cat?.origin },
-        { label: 'Adaptability', value: renderDots(cat?.adaptability) },
         { label: 'Life Span', value: cat?.life_span },
+        { label: 'Adaptability', value: renderDots(cat?.adaptability) },
         { label: 'Affection Level', value: renderDots(cat?.affection_level) },
         { label: 'Child Friendly', value: renderDots(cat?.child_friendly) },
         { label: 'Dog Friendly', value: renderDots(cat?.dog_friendly) },
@@ -72,11 +72,11 @@ export const CatScreen = ({ route }: Props) => {
                         attr.isLink ? (
                             <TouchableOpacity key={index} onPress={() => Linking.openURL(attr.value)} style={{ flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap' }}>
                                 <Text style={[styles.infoText, { color: theme.varts.text, fontWeight: 'bold' }]}>{attr.label}: </Text>
-                                <Text style={[styles.infoText, { color: theme.varts.link, textDecorationLine: 'underline' }]}> Pick me </Text>
+                                <Text style={[styles.infoText, { color: theme.varts.link, textDecorationLine: 'underline' }]}>Pick me</Text>
                             </TouchableOpacity>
                         ) : (
                             <Text key={index} style={[styles.infoText, { color: theme.varts.text }]}>
-                                <Text style={{ fontWeight: 'bold' }}>{attr.label}:</Text> {attr.value}
+                                <Text style={[styles.infoText, { color: theme.varts.text,  fontWeight: 'bold' }]}>{attr.label}:</Text> {attr.value}
                             </Text>
                         )
                     ))}
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
         transform: [{ rotate: '-45deg' }],
     },
     centeredView: {
-        width: '73%',
+        width: '65%',
         alignItems: 'center',
     },
     title: {
@@ -116,8 +116,8 @@ const styles = StyleSheet.create({
         padding: 20,
     },
     infoText: {
-        fontSize: 16,
-        marginVertical: 2,
+        fontSize: 18,
+        marginVertical: 5,
     },
     scrollViewContent: {
         flexGrow: 1,
