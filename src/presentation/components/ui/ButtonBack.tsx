@@ -11,7 +11,7 @@ export const ButtonBack = () => {
     
     return (
         <TouchableOpacity onPress={() => navigation.goBack()} style={{ padding: 10 }}>
-            <Text style={[globalTheme.text, { color: theme.varts.text }]}>Back</Text>
+            <Text style={[globalTheme.text, { color: theme.varts.text }]}>◀ Back</Text>
         </TouchableOpacity>
     )
 }
