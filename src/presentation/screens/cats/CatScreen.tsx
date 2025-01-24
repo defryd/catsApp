@@ -1,26 +1,60 @@
-import { Image, StyleSheet, TouchableOpacity, View } from 'react-native'
+import { Image, Linking, StyleSheet, TouchableOpacity, View } from 'react-native'
 import { CustomView } from '../../components/ui/CustomView'
 import { globalTheme } from '../../../config/theme/global-theme'
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParams } from '../../navigator/StackNavigator';
 import { Text } from 'react-native-paper';
 import { ScrollView } from 'react-native-gesture-handler';
+import { ButtonBack } from '../../components/ui/ButtonBack';
+import { Title } from '../../components/ui/Title';
+import { ThemeContext } from '../../context/ThemeContext';
+import { useContext } from 'react';
+import { FootBg } from '../../components/ui/FootBg';
 
 interface Props extends StackScreenProps<RootStackParams, 'CatScreen'> {}
 
 
-export const CatScreen = ({ navigation, route }: Props) => {
+export const CatScreen = ({ route }: Props) => {
+
+    const { theme } = useContext(ThemeContext);
 
     const { catId, cat } = route.params;
 
+    const renderDots = (count: number) => {
+        return (
+            <Text>
+                {Array.from({ length: count }, (_, i) => (
+                    <Text key={i} style={{ color: theme.varts.text }}>•</Text>
+                ))}
+            </Text>
+        );
+    };
+
+    const catAttributes = [
+        { label: 'Description', value: cat?.description },
+        { label: 'Temperament', value: cat?.temperament },
+        { label: 'Country of Origin', value: cat?.origin },
+        { label: 'Adaptability', value: renderDots(cat?.adaptability) },
+        { label: 'Life Span', value: cat?.life_span },
+        { label: 'Affection Level', value: renderDots(cat?.affection_level) },
+        { label: 'Child Friendly', value: renderDots(cat?.child_friendly) },
+        { label: 'Dog Friendly', value: renderDots(cat?.dog_friendly) },
+        { label: 'Energy Level', value: renderDots(cat?.energy_level) },
+        { label: 'Grooming', value: renderDots(cat?.grooming) },
+        { label: 'Health Issues', value: renderDots(cat?.health_issues) },
+        { label: 'Intelligence', value: renderDots(cat?.intelligence) },
+        { label: 'Social Needs', value: renderDots(cat?.social_needs) },
+        { label: 'Stranger Friendly', value: renderDots(cat?.stranger_friendly) },
+        { label: 'Wikipedia', value: cat?.wikipedia_url, isLink: true },
+      ];
+
     return (
         <CustomView safe style={[globalTheme.mainContainer]}>
-            <View style={{ flexDirection: 'row', backgroundColor: 'red', height: 60, paddingVertical: 10, alignItems: 'center' }}>
-                <TouchableOpacity onPress={() => navigation.goBack()} style={{ backgroundColor: 'blue', padding: 10 }}>
-                    <Text>Go back</Text>
-                </TouchableOpacity>
-
-                <Text style={styles.title}>{cat.name}</Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center', paddingBottom: 2 }}>
+                <ButtonBack />
+                <View style={styles.centeredView}>
+                    <Title text='Busqueda' />
+                </View>
             </View>
             
             {cat?.image ?
@@ -34,25 +68,21 @@ export const CatScreen = ({ navigation, route }: Props) => {
 
             <ScrollView contentContainerStyle={styles.scrollViewContent}>
                 <View style={styles.infoContainer}>
-
-                    <Text style={styles.infoText}>Temperament: {cat.temperament}</Text>
-                    <Text style={styles.infoText}>Origin: {cat.origin}</Text>
-                    <Text style={styles.infoText}>Description: {cat.description}</Text>
-                    <Text style={styles.infoText}>Life Span: {cat.life_span}</Text>
-                    <Text style={styles.infoText}>Adaptability: {cat.adaptability}</Text>
-                    <Text style={styles.infoText}>Affection Level: {cat.affection_level}</Text>
-                    <Text style={styles.infoText}>Child Friendly: {cat.child_friendly}</Text>
-                    <Text style={styles.infoText}>Dog Friendly: {cat.dog_friendly}</Text>
-                    <Text style={styles.infoText}>Energy Level: {cat.energy_level}</Text>
-                    <Text style={styles.infoText}>Grooming: {cat.grooming}</Text>
-                    <Text style={styles.infoText}>Health Issues: {cat.health_issues}</Text>
-                    <Text style={styles.infoText}>Intelligence: {cat.intelligence}</Text>
-                    <Text style={styles.infoText}>Social Needs: {cat.social_needs}</Text>
-                    <Text style={styles.infoText}>Stranger Friendly: {cat.stranger_friendly}</Text>
-                    <Text style={styles.infoText}>Wikipedia: {cat.wikipedia_url}</Text>
+                    {catAttributes.map((attr, index) => (
+                        attr.isLink ? (
+                            <TouchableOpacity key={index} onPress={() => Linking.openURL(attr.value)} style={{ flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap' }}>
+                                <Text style={[styles.infoText, { color: theme.varts.text, fontWeight: 'bold' }]}>{attr.label}: </Text>
+                                <Text style={[styles.infoText, { color: theme.varts.link, textDecorationLine: 'underline' }]}> Pick me </Text>
+                            </TouchableOpacity>
+                        ) : (
+                            <Text key={index} style={[styles.infoText, { color: theme.varts.text }]}>
+                                <Text style={{ fontWeight: 'bold' }}>{attr.label}:</Text> {attr.value}
+                            </Text>
+                        )
+                    ))}
                 </View>
             </ScrollView>
-
+            <FootBg style={styles.footBg} />
         </CustomView>
     )
 }
@@ -63,6 +93,10 @@ const styles = StyleSheet.create({
         top: -20,
         right: -100,
         transform: [{ rotate: '-45deg' }],
+    },
+    centeredView: {
+        width: '73%',
+        alignItems: 'center',
     },
     title: {
         left: '25%',
@@ -76,6 +110,7 @@ const styles = StyleSheet.create({
         resizeMode: 'cover',
         alignSelf: 'center',
         marginTop: 10,
+        borderRadius: 20,
     },
     infoContainer: {
         padding: 20,
@@ -97,11 +132,19 @@ const styles = StyleSheet.create({
     },
     textNoImage: {
         color: 'white',
-        // top: 10,
-        // left: 10,
         margin: 10,
         position: 'absolute',
         fontWeight: 'bold',
         fontSize: 20,
+    },
+    footBg: {
+        position: 'absolute',
+        bottom: -20,
+        right: -40,
+        opacity: 0.2,
+        width: 200,
+        height: 200,
+        zIndex: -1,
+        transform: [{ rotate: '-45deg' }],
     },
 });

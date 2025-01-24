@@ -1,6 +1,5 @@
 import { StyleProp, Text, View, ViewStyle } from 'react-native'
 import { ReactNode, useContext } from 'react';
-import { ThemeContext } from '../../context/ThemeContext';
 import { globalTheme } from '../../../config/theme/global-theme';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 

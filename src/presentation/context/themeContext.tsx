@@ -10,6 +10,7 @@ import { PaperProvider, adaptNavigationTheme } from 'react-native-paper';
 import { useColorScheme } from 'react-native';
 
 import { MD3DarkTheme, MD3LightTheme } from 'react-native-paper';
+import { lightColors, darkColors } from '../../config/theme/global-theme';
 
 const { LightTheme, DarkTheme } = adaptNavigationTheme({
     reactNavigationLight: NavigationDefaultTheme,
@@ -19,11 +20,13 @@ const { LightTheme, DarkTheme } = adaptNavigationTheme({
 const customLightTheme = {
     ...LightTheme,
     fonts: MD3LightTheme.fonts,
+    varts: lightColors,
 };
 
 const customDarkTheme = {
     ...DarkTheme,
     fonts: MD3DarkTheme.fonts,
+    varts: darkColors,
 };
 export const ThemeContext = createContext({
     isDark: false,

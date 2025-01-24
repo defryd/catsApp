@@ -1,21 +1,27 @@
-import React, { useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useContext, useEffect } from 'react';
+import { StyleSheet, Image, Text } from 'react-native';
 import { RootStackParams } from '../navigator/StackNavigator';
 import { StackScreenProps } from '@react-navigation/stack';
+import { CustomView } from '../components/ui/CustomView';
+import { globalTheme } from '../../config/theme/global-theme';
+import { Title } from '../components/ui/Title';
+
 
 interface Props extends StackScreenProps<RootStackParams,'SplashScreen'>{};
 
 const SplashScreen = ({ navigation }: Props) => {
+    
     useEffect(() => {
         setTimeout(() => {
-            navigation.replace('HomeScreen'); // Navega a la pantalla principal después de 3 segundos
-        }, 2000);
+            navigation.replace('HomeScreen');
+        }, 3000);
     }, [navigation]);
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.text}>Bienvenido a Mi Aplicación</Text>
-        </View>
+        <CustomView style={[globalTheme.mainContainer, styles.container]}>
+            <Title text='CatBreeds' />
+            <Image source={require('../../assets/cat.png')} style={styles.image}/>
+        </CustomView>
     );
 };
 
@@ -24,12 +30,16 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#fff',
     },
     text: {
         fontSize: 24,
         fontWeight: 'bold',
     },
+    image: {
+        marginTop: 20,
+        height: 300,
+        width: 300,
+    }
 });
 
 export default SplashScreen;

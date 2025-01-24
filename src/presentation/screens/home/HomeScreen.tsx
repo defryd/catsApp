@@ -1,14 +1,14 @@
-import { StyleSheet, View } from 'react-native'
-import { ActivityIndicator, Button, FAB, Text, useTheme } from 'react-native-paper'
+import { FlatList, StyleSheet, View } from 'react-native'
+import { FAB, useTheme } from 'react-native-paper'
 import { getBreeds } from '../../../actions/cats';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { FootBg } from '../../components/ui/FootBg';
 import { CustomView } from '../../components/ui/CustomView';
 import { globalTheme } from '../../../config/theme/global-theme';
-import { FlatList } from 'react-native-gesture-handler';
 import { CatCard } from '../../components/cats/CatCard';
 import { RootStackParams } from '../../navigator/StackNavigator';
 import { StackScreenProps } from '@react-navigation/stack';
+import { Title } from '../../components/ui/Title';
 
 interface Props extends StackScreenProps<RootStackParams,'HomeScreen'>{};
 
@@ -43,7 +43,7 @@ export const HomeScreen = ({ navigation }: Props) => {
                     )}
                     ListHeaderComponent={() => (
                         <View>
-                            <Text>Breads</Text>
+                            <Title text='CatBreeds' />
                         </View>
                     )}
                     onEndReachedThreshold={0.6}
