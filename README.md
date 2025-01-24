@@ -1,6 +1,5 @@
 # Bienvenido a catsApp
-![Uploading cats.png…]()
-
+<img width="1428" alt="cats" src="https://github.com/user-attachments/assets/cc48b416-d1ad-4041-bc1d-75ac612d011e" />
 
 Este es un nuevo proyecto de [**React Native**](https://reactnative.dev), creado utilizando [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
