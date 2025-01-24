@@ -1,5 +1,6 @@
 # Bienvenido a catsApp
-![app_https://imgur.com/a/aWYV2JZ](https://imgur.com/a/aWYV2JZ)
+![Uploading cats.png…]()
+
 
 Este es un nuevo proyecto de [**React Native**](https://reactnative.dev), creado utilizando [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
