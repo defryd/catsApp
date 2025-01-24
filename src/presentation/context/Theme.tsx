@@ -34,6 +34,7 @@ export const ThemeContext = createContext({
 });
 
 export const ThemeContextProvider = ({ children }: PropsWithChildren) => {
+    
     const colorScheme = useColorScheme();
 
     const isDark = colorScheme === 'dark';
