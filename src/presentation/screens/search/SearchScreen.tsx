@@ -23,15 +23,11 @@ export const SearchScreen = ({ navigation, route }: Props) => {
     const [term, setTerm] = useState('');
     const debouncedValue = useDebouncedValue(term);
 
-    console.log(debouncedValue);
-
     const { isLoading, data: catList = [] } = useQuery({
         queryKey: ['breeds', debouncedValue],
         queryFn: () => getBreedByName(debouncedValue),
         enabled: !!debouncedValue,
     });
-
-    console.log(catList);
 
     return (
         <CustomView safe style={[globalTheme.mainContainer]}>
