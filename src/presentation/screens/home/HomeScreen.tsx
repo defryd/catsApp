@@ -10,21 +10,20 @@ import { RootStackParams } from '../../navigator/StackNavigator';
 import { StackScreenProps } from '@react-navigation/stack';
 import { Title } from '../../components/ui/Title';
 
-interface Props extends StackScreenProps<RootStackParams,'HomeScreen'>{};
+interface Props extends StackScreenProps<RootStackParams, 'HomeScreen'> { };
 
 
 export const HomeScreen = ({ navigation }: Props) => {
 
     // const {isLoading, data: breeds = []} = useQuery({ queryKey: ['breeds'], queryFn: () => getBreeds(0), staleTime: 1000 * 60 * 5 });
     const theme = useTheme();
-    
-    const {isLoading, data, fetchNextPage } = useInfiniteQuery({ 
-        queryKey: ['breeds', 'infinite'], 
+    const { isLoading, data, fetchNextPage } = useInfiniteQuery({
+        queryKey: ['breeds', 'infinite'],
         initialPageParam: 0,
-        queryFn: ( params ) => getBreeds(params.pageParam),
+        queryFn: ({ pageParam }) => getBreeds(pageParam),
         // getNextPageParam: (lastPage, allPages) => lastPage.length === 10 ? allPages.length : false, 
         getNextPageParam: (lastPage, pages) => pages.length,
-        staleTime: 1000 * 60 * 5 
+        staleTime: 1000 * 60 * 5
     });
 
     return (
@@ -36,10 +35,7 @@ export const HomeScreen = ({ navigation }: Props) => {
                     keyExtractor={(item, index) => `${item.id}-${index}`}
                     numColumns={1}
                     renderItem={({ item }) => (
-                        <View>
-                            <CatCard data={item} />
-                            {/* <Text>{item.id}</Text> */}
-                        </View>
+                        <CatCard data={item} />
                     )}
                     ListHeaderComponent={() => (
                         <View>
@@ -47,7 +43,9 @@ export const HomeScreen = ({ navigation }: Props) => {
                         </View>
                     )}
                     onEndReachedThreshold={0.6}
-                    onEndReached={() => fetchNextPage()}
+                    onEndReached={() => {
+                        if (!isLoading) fetchNextPage();
+                    }}
                     showsVerticalScrollIndicator={false}
                 />
             </View>
